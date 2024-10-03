@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "parthenoncraft",
+  "version": "${version}",
+  "name": "parthenoncraft",
+  "description": "test",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/parthenoncraft/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.github.tajeru.parthenoncraft.ParthenoncraftClient"
+    ],
+    "main": [
+      "com.github.tajeru.parthenoncraft.Parthenoncraft"
+    ]
+  },
+  "mixins": [
+    "parthenoncraft.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "java": ">=21",
+    "fabric": "*",
+    "minecraft": "1.21"
+  }
+}
