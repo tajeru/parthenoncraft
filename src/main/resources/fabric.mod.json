@@ -15,6 +15,9 @@
     ],
     "main": [
       "com.github.tajeru.parthenoncraft.Parthenoncraft"
+    ],
+    "fabric-datagen": [
+      "com.github.tajeru.parthenoncraft.ParthenoncraftDataGenerator"
     ]
   },
   "mixins": [
