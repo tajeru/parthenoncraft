@@ -35,6 +35,14 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.ROW_FLUORITE)).entries((displayContext, entries) -> {
                         //ここにタブ内に表示するアイテムを列挙
                         entries.add(Blocks.QUARTZ_PILLAR);
+                        entries.add(ModItems.CLERIC_TOOTH);
+                        entries.add(ModItems.FORMER_HOLY_WATER);
+                        entries.add(ModItems.GRAIL_FRAGMENT);
+                        entries.add(ModItems.MEMORY);
+                        entries.add(ModItems.HUMAN_BONE);
+                        entries.add(ModItems.SOMEONES_DIARY);
+                        entries.add(ModItems.RED_STRING);
+
 
 
                     }).build());

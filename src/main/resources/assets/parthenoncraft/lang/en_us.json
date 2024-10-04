@@ -1,6 +1,16 @@
 {
-"item.parthenoncraft.fluorite": "Fluorite",
+  "item.parthenoncraft.": "",
+  "item.parthenoncraft.fluorite": "Fluorite",
   "item.parthenoncraft.raw_fluorite": "Raw Fluorite",
+  "item.parthenoncraft.cleric_tooth": "Cleric's Tooth",
+  "item.parthenoncraft.former_holy_water": "Former Holy Water",
+  "item.parthenoncraft.grail_fragment": "Fragment of the Holy Grail",
+  "item.parthenoncraft.memory": "Memory",
+  "item.parthenoncraft.human_bone": "Human Bone",
+  "item.parthenoncraft.someones_diary": "Someone's Diary",
+  "item.parthenoncraft.red_string": "Red String",
+
+
 
   "itemgroup.fluorite": "Fluorites",
   "itemgroup.parthenoncraft": "ParthenonCraft Items"
