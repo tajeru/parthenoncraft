@@ -16,7 +16,7 @@ public class ModItemGroups {
 
 
     //クリエイティブタブの追加　アイコンの画像やタブの名前の定義 keyは翻訳で使用。
-        //このタグではフローライトをアイコンとしたタブを追加
+        //このタグではフローライトをアイコンとしたタブを追加 サンプル
     public static final ItemGroup FLUORITE_GROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(Parthenoncraft.MOD_ID, "fluorite"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.fluorite"))
@@ -34,7 +34,14 @@ public class ModItemGroups {
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.parthenoncraft"))
                     .icon(() -> new ItemStack(ModItems.ROW_FLUORITE)).entries((displayContext, entries) -> {
                         //ここにタブ内に表示するアイテムを列挙
-                        entries.add(Blocks.QUARTZ_PILLAR);
+                        entries.add(ModItems.CLERIC_TOOTH);
+                        entries.add(ModItems.FORMER_HOLY_WATER);
+                        entries.add(ModItems.GRAIL_FRAGMENT);
+                        entries.add(ModItems.MEMORY);
+                        entries.add(ModItems.HUMAN_BONE);
+                        entries.add(ModItems.SOMEONES_DIARY);
+                        entries.add(ModItems.RED_STRING);
+
 
 
                     }).build());

@@ -4,7 +4,6 @@ import com.github.tajeru.parthenoncraft.Parthenoncraft;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -17,6 +16,14 @@ public class ModItems {
     //↓テンプレート
     public static final Item FLUORITE = registerItem("fluorite", new Item(new Item.Settings()));
     public static final Item ROW_FLUORITE = registerItem("raw_fluorite", new Item(new Item.Settings()));
+    public static final Item CLERIC_TOOTH = registerItem("cleric_tooth", new Item(new Item.Settings()));
+    public static final Item FORMER_HOLY_WATER = registerItem("former_holy_water", new Item(new Item.Settings()));
+    public static final Item GRAIL_FRAGMENT= registerItem("grail_fragment", new Item(new Item.Settings()));
+    public static final Item MEMORY = registerItem("memory", new Item(new Item.Settings()));
+    public static final Item HUMAN_BONE = registerItem("human_bone", new Item(new Item.Settings()));
+    public static final Item SOMEONES_DIARY = registerItem("someones_diary", new Item(new Item.Settings()));
+    public static final Item RED_STRING = registerItem("red_string", new Item(new Item.Settings()));
+
 
     //アイテム登録を行う関数　基本触らない。
     private static Item registerItem(String name, Item item){
