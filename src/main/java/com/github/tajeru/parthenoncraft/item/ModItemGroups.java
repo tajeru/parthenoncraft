@@ -42,7 +42,10 @@ public class ModItemGroups {
                         entries.add(ModItems.HUMAN_BONE);
                         entries.add(ModItems.SOMEONES_DIARY);
                         entries.add(ModItems.RED_STRING);
+
+
                         entries.add(ModBlocks.QUARTZ_BRICKS);
+                        entries.add(ModBlocks.TELEPORT_BLOCK);
 
 
 

@@ -1,6 +1,7 @@
 package com.github.tajeru.parthenoncraft.block;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
+import com.github.tajeru.parthenoncraft.block.custom.TeleportBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -12,9 +13,14 @@ import net.minecraft.util.Identifier;
 
 public class ModBlocks {
     //ここに追加するブロックを書く。　音や、硬さ、適正ツールが設定できる。 Settingのスーパークラスからいろいろ選べる
+    // customで個別に機能をついかしたものはnew Blockのところをnew OOBlockとする。ex) new TeleportBlock(Abstract...
         public static final Block QUARTZ_BRICKS = registerBlock("quartz_bricks",
             new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.NETHER_BRICKS)
                     .strength(3f).requiresTool()));
+
+    public static final Block TELEPORT_BLOCK = registerBlock("teleport_block",
+            new TeleportBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS)
+                    .strength(4f).requiresTool()));
 
 
     //ブロック追加の関数　さらに下のブロックアイテムをよびだしている。

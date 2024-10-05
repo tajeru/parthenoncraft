@@ -17,6 +17,8 @@ public class ModModelProvider extends FabricModelProvider {
     //　textures/models/itemの.jsonを自動生成してくれる
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.TELEPORT_BLOCK);
+
     }
 
     @Override

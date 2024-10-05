@@ -1,4 +1,4 @@
-// 1.21	2024-10-05T08:29:04.6760558	parthenoncraft/Model Definitions
+// 1.21	2024-10-05T17:54:56.2081816	parthenoncraft/Model Definitions
 cdb95e4c7c6987c9c45c327282cf65b3f11929d6 assets\parthenoncraft\models\item\former_holy_water.json
 79099b6bb6a97c1264aa642fb709bf98ae50001f assets\parthenoncraft\models\item\fluorite.json
 21c94d458e82a475b0bb43e49b7aabb24b06c14c assets\parthenoncraft\models\item\red_string.json
@@ -8,6 +8,9 @@ cdb95e4c7c6987c9c45c327282cf65b3f11929d6 assets\parthenoncraft\models\item\forme
 facdfdc9ead1cc83311d786121ddce85d9a65309 assets\parthenoncraft\models\item\someones_diary.json
 098c0b901101c5c2cb2c5c94746d4641f1c1c439 assets\parthenoncraft\models\item\quartz_bricks.json
 10f4f489b65ffb8273d7d7b9175eaca1ef2161ab assets\parthenoncraft\blockstates\quartz_bricks.json
+342abb922fb28bbd93b86ff9a3d2c33127360691 assets\parthenoncraft\models\item\teleport_block.json
 b60b62e30b834758728fb73b30e2ba925f86eac3 assets\parthenoncraft\models\item\raw_fluorite.json
 dc3256417ec4414577797d7c4c23d53a8590bb71 assets\parthenoncraft\models\item\memory.json
 0867db9d3cc6585223f10a9220ac10b6728ee71e assets\parthenoncraft\models\item\grail_fragment.json
+70362c2132c3f79e4929dc1b8c6f9f721a5329f0 assets\parthenoncraft\models\block\teleport_block.json
+219849c079b4a208296429de6d3430e52f686941 assets\parthenoncraft\blockstates\teleport_block.json
