@@ -3,6 +3,7 @@ package com.github.tajeru.parthenoncraft;
 import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import com.github.tajeru.parthenoncraft.item.ModItemGroups;
 import com.github.tajeru.parthenoncraft.item.ModItems;
+import com.github.tajeru.parthenoncraft.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,5 +23,7 @@ public class Parthenoncraft implements ModInitializer {
 
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
+
+        ModWorldGeneration.generateModWorldGeneration();
     }
 }
