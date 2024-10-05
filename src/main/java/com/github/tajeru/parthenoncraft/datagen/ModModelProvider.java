@@ -1,5 +1,6 @@
 package com.github.tajeru.parthenoncraft.datagen;
 
+import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import com.github.tajeru.parthenoncraft.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -15,7 +16,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     //　textures/models/itemの.jsonを自動生成してくれる
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
     }
 
     @Override
@@ -30,5 +31,7 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.HUMAN_BONE, Models.GENERATED);
     itemModelGenerator.register(ModItems.SOMEONES_DIARY, Models.GENERATED);
     itemModelGenerator.register(ModItems.RED_STRING, Models.GENERATED);
+
+
     }
 }

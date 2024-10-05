@@ -1,6 +1,7 @@
 package com.github.tajeru.parthenoncraft.item;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
+import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -32,7 +33,7 @@ public class ModItemGroups {
     public static final ItemGroup PARTHENONCRAFT = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(Parthenoncraft.MOD_ID, "fluorite_blocks"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.parthenoncraft"))
-                    .icon(() -> new ItemStack(ModItems.ROW_FLUORITE)).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModBlocks.QUARTZ_BRICKS)).entries((displayContext, entries) -> {
                         //ここにタブ内に表示するアイテムを列挙
                         entries.add(ModItems.CLERIC_TOOTH);
                         entries.add(ModItems.FORMER_HOLY_WATER);
@@ -41,6 +42,7 @@ public class ModItemGroups {
                         entries.add(ModItems.HUMAN_BONE);
                         entries.add(ModItems.SOMEONES_DIARY);
                         entries.add(ModItems.RED_STRING);
+                        entries.add(ModBlocks.QUARTZ_BRICKS);
 
 
 

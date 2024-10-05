@@ -1,5 +1,6 @@
 package com.github.tajeru.parthenoncraft;
 
+import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import com.github.tajeru.parthenoncraft.item.ModItemGroups;
 import com.github.tajeru.parthenoncraft.item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -20,5 +21,6 @@ public class Parthenoncraft implements ModInitializer {
 
 
         ModItems.registerModItems();
+        ModBlocks.registerModBlocks();
     }
 }
