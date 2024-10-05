@@ -2,8 +2,7 @@ package com.github.tajeru.parthenoncraft.block;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
 import com.github.tajeru.parthenoncraft.block.custom.TeleportBlock;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -18,9 +17,77 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.NETHER_BRICKS)
                     .strength(3f).requiresTool()));
 
-    public static final Block TELEPORT_BLOCK = registerBlock("teleport_block",
+        public static final Block TELEPORT_BLOCK = registerBlock("teleport_block",
             new TeleportBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.GLASS)
                     .strength(4f).requiresTool()));
+
+        public static final Block CALCITE_STAIRS = registerBlock("calcite_stairs",
+            new StairsBlock(Blocks.CALCITE.getDefaultState(),
+                AbstractBlock.Settings.create().strength(1f).requiresTool()));
+
+    public static final Block CALCITE_SLAB = registerBlock("calcite_slab",
+            new SlabBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
+
+    public static final Block CALCITE_BUTTON = registerBlock("calcite_button",
+            new ButtonBlock(BlockSetType.STONE, 10, AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block CALCITE_PRESSURE_PLATE = registerBlock("calcite_pressure_plate",
+            new PressurePlateBlock(BlockSetType.STONE, AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block CALCITE_FENCE = registerBlock("calcite_fence",
+            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block CALCITE_FENCE_PILLAR = registerBlock("calcite_fence_pillar",
+            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block CALCITE_FENCE_GATE = registerBlock("calcite_fence_gate",
+            new FenceGateBlock(WoodType.ACACIA, AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block CALCITE_WALL = registerBlock("calcite_wall",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public  static final Block CALCITE_WALL_PILLAR = registerBlock("calcite_wall_pillar",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+
+
+
+
+
+
+    public static final Block QUARTZ_BRICK_STAIRS = registerBlock("quartz_brick_stairs",
+            new StairsBlock(ModBlocks.QUARTZ_BRICKS.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block QUARTZ_BRICK_SLAB = registerBlock("quartz_brick_slab",
+            new SlabBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block QUARTZ_BRICK_WALL = registerBlock("quartz_brick_wall",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_BRICK_WALL_PILLAR = registerBlock("quartz_brick_wall_pillar",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_FENCE = registerBlock("quartz_fence",
+            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_FENCE_PILLAR = registerBlock("quartz_fence_pillar",
+            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_FENCE_GATE = registerBlock("quartz_fence_gate",
+            new FenceGateBlock(WoodType.ACACIA, AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_WALL = registerBlock("quartz_wall",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_WALL_PILLAR = registerBlock("quartz_wall_pillar",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+
+
+
+
+
 
 
     //ブロック追加の関数　さらに下のブロックアイテムをよびだしている。
