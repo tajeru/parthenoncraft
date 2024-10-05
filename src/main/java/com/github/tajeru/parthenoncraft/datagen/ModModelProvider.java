@@ -4,10 +4,12 @@ import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import com.github.tajeru.parthenoncraft.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -26,6 +28,8 @@ public class ModModelProvider extends FabricModelProvider {
         //blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.TELEPORT_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.VOID_CLOUD_BLOCK);
+
 
         calciteTexturePool.stairs(ModBlocks.CALCITE_STAIRS);
         calciteTexturePool.slab(ModBlocks.CALCITE_SLAB);

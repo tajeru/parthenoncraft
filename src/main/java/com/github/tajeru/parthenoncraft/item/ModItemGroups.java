@@ -53,6 +53,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModBlocks.TELEPORT_BLOCK)).entries((displayContext, entries) -> {
 
                         entries.add(ModBlocks.TELEPORT_BLOCK);
+                        entries.add(ModBlocks.VOID_CLOUD_BLOCK);
                         entries.add(ModBlocks.QUARTZ_WALL_PILLAR);
                         entries.add(ModBlocks.QUARTZ_BRICK_WALL_PILLAR);
                         entries.add(ModBlocks.CALCITE_WALL_PILLAR);
