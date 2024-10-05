@@ -1,0 +1,15 @@
+{
+  "type": "parthenoncraft:parthenondim_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 123456,
+    "settings": "parthenoncraft:parthenondim_noise_settings",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:plains"
+    },
+    "structures": {
+      "structures": {}
+    }
+  }
+}
