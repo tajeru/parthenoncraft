@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "parthenoncraft:block/quartz_bricks",
+    "side": "parthenoncraft:block/quartz_bricks",
+    "top": "parthenoncraft:block/quartz_bricks"
+  }
+}

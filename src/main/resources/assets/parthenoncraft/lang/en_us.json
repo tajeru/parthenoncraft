@@ -11,7 +11,35 @@
   "item.parthenoncraft.red_string": "Red String",
 
 
+  "block.parthenoncraft.quartz_bricks": "Quartz Bricks",
+  "block.parthenoncraft.quartz_brick_stairs": "Quartz Brick Stairs",
+  "block.parthenoncraft.quartz_brick_slab": "Quartz Brick Slab",
+  "block.parthenoncraft.quartz_brick_wall": "Quartz Brick Wall",
+  "block.parthenoncraft.quartz_brick_wall_pillar": "Quartz Brick Wall Pillar",
+  "block.parthenoncraft.quartz_fence": "Quartz Fence",
+  "block.parthenoncraft.quartz_fence_pillar": "Quartz Fence Pillar",
+  "block.parthenoncraft.quartz_fence_gate": "Quartz Fence Gate",
+  "block.parthenoncraft.quartz_wall": "Quartz Wall",
+  "block.parthenoncraft.quartz_wall_pillar": "Quartz Wall Pillar",
+
+  "block.parthenoncraft.calcite_stairs": "Calcite Stairs",
+  "block.parthenoncraft.calcite_slab": "Calcite Slab",
+  "block.parthenoncraft.calcite_button": "Calcite Button",
+  "block.parthenoncraft.calcite_pressure_plate": "Calcite Pressure Plate",
+  "block.parthenoncraft.calcite_fence": "Calcite Fence",
+  "block.parthenoncraft.calcite_fence_pillar": "Calcite Fence Pillar",
+  "block.parthenoncraft.calcite_fence_gate": "Calcite Fence Gate",
+  "block.parthenoncraft.calcite_wall": "Calcite Wall",
+  "block.parthenoncraft.calcite_wall_pillar": "Calcite Wall Pillar ",
+
+
+  "block.parthenoncraft.teleport_block": "Teleport Block",
+  "block.parthenoncraft.void_cloud_block": "Void Cloud Block",
+
+
+
 
   "itemgroup.fluorite": "Fluorites",
-  "itemgroup.parthenoncraft": "ParthenonCraft Items"
+  "itemgroup.parthenoncraft": "ParthenonCraft",
+  "itemgroup.parthenoncraft_debug": "ParthenonCraft Debug"
 }

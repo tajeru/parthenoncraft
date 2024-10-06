@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "parthenoncraft:block/teleport_block"
+    }
+  }
+}
