@@ -8,17 +8,18 @@
     "Name": "minecraft:air"
   },
   "default_fluid": {
-    "Name": "minecraft:water",
+    "Name": "minecraft:air",
     "Properties": {
       "level": "0"
     }
   },
   "noise": {
     "min_y": 0,
-    "height": 16,
+    "height": 128,
     "size_horizontal": 1,
     "size_vertical": 1,
-    "density_offset": -0.5
+    "density_offset": 1,
+    "density_factor": 0
   },
   "noise_router": {
     "barrier": 0,
