@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "parthenoncraft:block/cloud_block",
+    "side": "parthenoncraft:block/cloud_block",
+    "top": "parthenoncraft:block/cloud_block"
+  }
+}

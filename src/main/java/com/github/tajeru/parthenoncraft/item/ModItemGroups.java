@@ -14,7 +14,6 @@ public class ModItemGroups {
 
 
     //クリエイティブタブの追加　アイコンの画像やタブの名前の定義 keyは翻訳で使用。
-        //このタグではフローライトをアイコンとしたタブを追加 サンプル
     public static final ItemGroup PARTHENONCRAFT = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(Parthenoncraft.MOD_ID, "parthenoncreft_all"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.parthenoncraft"))
@@ -45,6 +44,11 @@ public class ModItemGroups {
                         entries.add(ModBlocks.CALCITE_FENCE);
                         entries.add(ModBlocks.CALCITE_FENCE_GATE);
                         entries.add(ModBlocks.CALCITE_WALL);
+
+                        entries.add(ModBlocks.CLOUD_BLOCK);
+                        entries.add(ModBlocks.CLOUD_STAIRS);
+                        entries.add(ModBlocks.CLOUD_SLAB);
+
                     }).build());
 
     public static final ItemGroup PARTHENONCRAFT_DEBUG = Registry.register(Registries.ITEM_GROUP,
