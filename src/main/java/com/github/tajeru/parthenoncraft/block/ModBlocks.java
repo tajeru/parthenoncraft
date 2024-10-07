@@ -1,8 +1,7 @@
 package com.github.tajeru.parthenoncraft.block;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
-import com.github.tajeru.parthenoncraft.block.custom.TeleportBlock;
-import com.github.tajeru.parthenoncraft.block.custom.VoidCloudBlock;
+import com.github.tajeru.parthenoncraft.block.custom.*;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -91,6 +90,16 @@ public class ModBlocks {
     public static final Block QUARTZ_WALL_PILLAR = registerBlock("quartz_wall_pillar",
             new WallBlock(AbstractBlock.Settings.create().requiresTool()));
 
+
+    public static final Block CLOUD_BLOCK = registerBlock("cloud_block",
+            new CloudBlock(AbstractBlock.Settings.create().strength(0.5f),200 ));
+
+    public static final Block CLOUD_STAIRS  = registerBlock("cloud_stairs",
+            new CloudStairs(ModBlocks.CLOUD_BLOCK.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(0.5f).requiresTool(), 200));
+
+    public static final Block CLOUD_SLAB = registerBlock("cloud_slab",
+            new CloudSlab(AbstractBlock.Settings.create().strength(0.5f).requiresTool(), 200));
 
 
 
