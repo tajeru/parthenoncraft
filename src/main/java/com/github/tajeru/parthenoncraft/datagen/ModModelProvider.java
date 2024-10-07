@@ -23,7 +23,7 @@ public class ModModelProvider extends FabricModelProvider {
         BlockStateModelGenerator.BlockTexturePool calciteTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.CALCITE);
         BlockStateModelGenerator.BlockTexturePool quartzBricksTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.QUARTZ_BRICKS);
         BlockStateModelGenerator.BlockTexturePool smoothQuartzBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.SMOOTH_QUARTZ);
-
+        BlockStateModelGenerator.BlockTexturePool cloudBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.CLOUD_BLOCK);
         //ここにブロックを追加
         //blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
 
@@ -50,7 +50,13 @@ public class ModModelProvider extends FabricModelProvider {
         smoothQuartzBlockTexturePool.fence(ModBlocks.QUARTZ_FENCE_PILLAR);
         smoothQuartzBlockTexturePool.fenceGate(ModBlocks.QUARTZ_FENCE_GATE);
         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL);
-         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL_PILLAR);
+        smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL_PILLAR);
+
+
+        cloudBlockTexturePool.stairs(ModBlocks.CLOUD_STAIRS);
+        cloudBlockTexturePool.slab(ModBlocks.CLOUD_SLAB);
+
+
 
 
 
@@ -68,6 +74,8 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.HUMAN_BONE, Models.GENERATED);
     itemModelGenerator.register(ModItems.SOMEONES_DIARY, Models.GENERATED);
     itemModelGenerator.register(ModItems.RED_STRING, Models.GENERATED);
+
+
 
 
     }

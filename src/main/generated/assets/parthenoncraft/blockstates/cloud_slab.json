@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "parthenoncraft:block/cloud_slab"
+    },
+    "type=double": {
+      "model": "parthenoncraft:block/cloud_block"
+    },
+    "type=top": {
+      "model": "parthenoncraft:block/cloud_slab_top"
+    }
+  }
+}
