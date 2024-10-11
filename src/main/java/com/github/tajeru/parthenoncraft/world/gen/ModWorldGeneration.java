@@ -1,5 +1,6 @@
 package com.github.tajeru.parthenoncraft.world.gen;
 
+import com.github.tajeru.parthenoncraft.world.dimension.ModDimensions;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.registry.Registry;
@@ -15,22 +16,21 @@ import net.minecraft.world.dimension.DimensionType;
 public class ModWorldGeneration {
     public static void generateModWorldGeneration() {
 
-
         ServerWorldEvents.LOAD.register(ModWorldGeneration::onWorldLoad);
+    }
+
+    private static void onWorldLoad(MinecraftServer server, ServerWorld world) {
+        // オーバーワールドとエンドディメンションがロードされたときに生成
+        ServerWorld overworld = server.getWorld(World.OVERWORLD);
+        ServerWorld ParthenonDim = server.getWorld(ModDimensions.PARTHENONDIM_LEVEL_KEY);
+
+        if (overworld != null && ParthenonDim != null) {
+            ModBlockGeneration.generateStairsAndLink(overworld, ParthenonDim);
         }
-
-        private static void onWorldLoad(MinecraftServer server, ServerWorld world) {
-            // オーバーワールドとエンドディメンションがロードされたときに生成
-            ServerWorld overworld = server.getWorld(World.OVERWORLD);
-            ServerWorld endWorld = server.getWorld(World.END);
-
-            if (overworld != null && endWorld != null) {
-                ModBlockGeneration.generateStairsAndLink(overworld, endWorld);
-            }
-        }
+    }
 
 
+    }
 
-}
 
 

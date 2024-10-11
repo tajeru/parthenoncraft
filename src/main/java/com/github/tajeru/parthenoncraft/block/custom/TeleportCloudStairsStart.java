@@ -1,5 +1,6 @@
 package com.github.tajeru.parthenoncraft.block.custom;
 
+import com.github.tajeru.parthenoncraft.world.dimension.ModDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
@@ -32,11 +33,11 @@ public class TeleportCloudStairsStart extends StairsBlock {
             BlockPos eBlockPos = sToEMap.get(pos);
             if (eBlockPos != null) {
                 // エンドディメンションへテレポート
-                ServerWorld endWorld = player.getServer().getWorld(World.END);
+                ServerWorld endWorld = player.getServer().getWorld(ModDimensions.PARTHENONDIM_LEVEL_KEY);
                 if (endWorld != null) {
                     Vec3d teleportPos = new Vec3d(eBlockPos.getX(), eBlockPos.getY() + 1, eBlockPos.getZ());
                     player.teleport(endWorld, teleportPos.x, teleportPos.y, teleportPos.z, player.getYaw(), player.getPitch());
-                    player.sendMessage(Text.literal("Teleported to the End!"), false);
+                    player.sendMessage(Text.literal("Teleported to the Parthenon!"), false);
                 }
             } else {
                 player.sendMessage(Text.literal("No linked structure found!"), false);

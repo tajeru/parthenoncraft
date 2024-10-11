@@ -9,14 +9,14 @@ import net.minecraft.world.World;
 
 public class ModBlockGeneration {
 
-    public static void generateStairsAndLink(ServerWorld overworld, ServerWorld endWorld) {
+    public static void generateStairsAndLink(ServerWorld overworld, ServerWorld ParthenonDim) {
         // sブロックをオーバーワールドのランダムな位置に生成
         BlockPos sPos = findSafePosition(overworld);
         overworld.setBlockState(sPos, ModBlocks.TELEPORT_CLOUD_STAIRS_START.getDefaultState());
 
-        // eブロックをエンドディメンションのランダムな位置に生成
-        BlockPos ePos = findSafePosition(endWorld);
-        endWorld.setBlockState(ePos, ModBlocks.TELEPORT_CLOUD_STAIRS_END.getDefaultState());
+        // eブロックをパルテノンディメンションのランダムな位置に生成
+        BlockPos ePos = findSafePosition(ParthenonDim);
+        ParthenonDim.setBlockState(ePos, ModBlocks.TELEPORT_CLOUD_STAIRS_END.getDefaultState());
 
         // sブロックとeブロックをリンク
         TeleportCloudStairsStart.linkBlocks(sPos, ePos);

@@ -6,17 +6,28 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 //ワールドに生成されるオブジェクトやブロックそのものを生成するクラス
 public class ModConfiguredFeatures {
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> CLOUD_GEODE_KEY = registerKey("cloud_geode");
+
+
+
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context){
+        // レジストリのルックアップ
+
+
+
+
 
 
 
     }
+
 
     //レジストリキーの作成と登録をおこなうメソッド
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
