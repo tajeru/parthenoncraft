@@ -5,6 +5,8 @@ import com.github.tajeru.parthenoncraft.event.ModEventHandler;
 import com.github.tajeru.parthenoncraft.item.ModItemGroups;
 import com.github.tajeru.parthenoncraft.item.ModItems;
 import com.github.tajeru.parthenoncraft.structure.ModStructures;
+import com.github.tajeru.parthenoncraft.structure.ModStructures2;
+import com.github.tajeru.parthenoncraft.structure.ModStructuresType;
 import com.github.tajeru.parthenoncraft.structure.custom.CreateSkytowerStructure;
 import com.github.tajeru.parthenoncraft.world.dimension.ModDimensions;
 import com.github.tajeru.parthenoncraft.world.gen.ModStructuresGeneration;
@@ -51,6 +53,8 @@ public class Parthenoncraft implements ModInitializer {
 
         ModItems.registerModItems();
         ModBlocks.registerModBlocks();
+        ModStructures2.registerStructureKeys();
+        ModStructuresType.registerStructureKeys();
 
         ModWorldGeneration.generateModWorldGeneration();
 
