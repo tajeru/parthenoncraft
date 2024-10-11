@@ -55,6 +55,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         cloudBlockTexturePool.stairs(ModBlocks.CLOUD_STAIRS);
         cloudBlockTexturePool.slab(ModBlocks.CLOUD_SLAB);
+        cloudBlockTexturePool.stairs(ModBlocks.TELEPORT_CLOUD_STAIRS_START);
+        cloudBlockTexturePool.stairs(ModBlocks.TELEPORT_CLOUD_STAIRS_END);
+
 
 
 

@@ -10,24 +10,26 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.DimensionTypes;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.OptionalLong;
 
 public class ModDimensions {
     public static final RegistryKey<DimensionOptions> PARTHENONDIM_KEY = RegistryKey.of(RegistryKeys.DIMENSION,
             Identifier.of(Parthenoncraft.MOD_ID, "parthenondim"));
-    public  static final RegistryKey<World>  PARTHENONDIM_LEVEL_KEY =  RegistryKey.of(RegistryKeys.WORLD,
+    public static final RegistryKey<World> PARTHENONDIM_LEVEL_KEY = RegistryKey.of(RegistryKeys.WORLD,
             Identifier.of(Parthenoncraft.MOD_ID, "parthenondim"));
-    public  static  final RegistryKey<DimensionType> PARTHENON_DIM_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE,
+    public static final RegistryKey<DimensionType> PARTHENON_DIM_TYPE = RegistryKey.of(RegistryKeys.DIMENSION_TYPE,
             Identifier.of(Parthenoncraft.MOD_ID, "parthenondim_type"));
 
 
-    public static void bootstrapType(Registerable<DimensionType> context){
+    public static void bootstrapType(Registerable<DimensionType> context) {
         context.register(PARTHENON_DIM_TYPE, new DimensionType(
                 OptionalLong.of(6000),
                 true,
@@ -43,11 +45,10 @@ public class ModDimensions {
                 BlockTags.DIRT,
                 DimensionTypes.OVERWORLD_ID,
                 3.0f,
-                new DimensionType.MonsterSettings(true,false, UniformIntProvider.create(0,0), 0)));
+                new DimensionType.MonsterSettings(true, false, UniformIntProvider.create(0, 0), 0)));
 
 
-    }
-}
+    }}
 
 //時間を12000に固定
 //空が存在する

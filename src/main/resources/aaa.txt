@@ -1,0 +1,78 @@
+package com.github.tajeru.parthenoncraft.block.custom;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;  // デバッグ用メッセージのために追加
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
+public class TeleportCloudStairs extends StairsBlock {
+
+    public TeleportCloudStairs(BlockState baseBlockState, Settings settings) {
+        super(baseBlockState, settings);
+    }
+
+    @Override
+    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
+        if (!world.isClient && entity instanceof ServerPlayerEntity player) {
+            player.sendMessage(new LiteralText("You stepped on the teleport stairs!"), false); // デバッグメッセージ
+
+            MinecraftServer server = world.getServer();
+            if (server != null) {
+                player.sendMessage(new LiteralText("Server is valid!"), false); // デバッグメッセージ
+
+                // エンドディメンションの取得
+                ServerWorld endWorld = server.getWorld(World.END);
+                if (endWorld != null) {
+                    player.sendMessage(new LiteralText("End dimension loaded!"), false); // デバッグメッセージ
+
+                    // エンドディメンション内でダイヤモンドブロックを探す
+                    BlockPos diamondBlockPos = findBlockInWorld(endWorld, Blocks.DIAMOND_BLOCK.getDefaultState(), player.getBlockPos(), 100);
+
+                    if (diamondBlockPos != null) {
+                        // ダイヤモンドブロックの上に直接テレポート
+                        Vec3d teleportPosition = new Vec3d(diamondBlockPos.getX(), diamondBlockPos.getY() + 1, diamondBlockPos.getZ());
+                        player.teleport(endWorld, teleportPosition.x, teleportPosition.y, teleportPosition.z, player.getYaw(), player.getPitch());
+
+                        player.sendMessage(new LiteralText("Teleported to diamond block!"), false); // デバッグメッセージ
+                    } else {
+                        player.sendMessage(new LiteralText("No Diamond Block found nearby."), false); // デバッグメッセージ
+                    }
+                } else {
+                    player.sendMessage(new LiteralText("End dimension not found!"), false); // デバッグメッセージ
+                }
+            } else {
+                player.sendMessage(new LiteralText("Server is null!"), false); // デバッグメッセージ
+            }
+        }
+    }
+
+    // ワールド内で特定のブロックを探すメソッド
+    private BlockPos findBlockInWorld(ServerWorld world, BlockState targetBlock, BlockPos startPos, int searchRadius) {
+        BlockPos.Mutable checkPos = new BlockPos.Mutable();
+
+        // 半径 searchRadius の範囲でブロックを探索
+        for (int x = -searchRadius; x <= searchRadius; x++) {
+            for (int z = -searchRadius; z <= searchRadius; z++) {
+                for (int y = world.getBottomY(); y < world.getTopY(); y++) {
+                    checkPos.set(startPos.getX() + x, y, startPos.getZ() + z);
+                    if (world.getBlockState(checkPos).isOf(targetBlock.getBlock())) {
+                        return checkPos;  // ターゲットブロックを見つけたらその位置を返す
+                    }
+                }
+            }
+        }
+
+        return null;  // ブロックが見つからない場合はnullを返す
+    }
+}
+
+
+
