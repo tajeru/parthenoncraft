@@ -18,8 +18,7 @@ public class ModBlockGeneration {
         BlockPos ePos = findSafePosition(ParthenonDim);
         ParthenonDim.setBlockState(ePos, ModBlocks.TELEPORT_CLOUD_STAIRS_END.getDefaultState());
 
-        // sブロックとeブロックをリンク
-        TeleportCloudStairsStart.linkBlocks(sPos, ePos);
+
 
         // 生成された座標をコンソールとチャットで表示
         System.out.println("s block generated at: " + sPos);
