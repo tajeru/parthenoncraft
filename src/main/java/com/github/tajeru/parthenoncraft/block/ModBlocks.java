@@ -98,6 +98,14 @@ public class ModBlocks {
             new CloudStairs(ModBlocks.CLOUD_BLOCK.getDefaultState(),
                     AbstractBlock.Settings.create().strength(0.5f).requiresTool(), 200));
 
+    public static final Block TELEPORT_CLOUD_STAIRS_START = registerBlock("teleport_cloud_stairs_start",
+            new  TeleportCloudStairsStart(ModBlocks.CLOUD_BLOCK.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(10f).requiresTool()));
+
+    public static final Block TELEPORT_CLOUD_STAIRS_END = registerBlock("teleport_cloud_stairs_end",
+            new TeleportCloudStairsEnd(ModBlocks.CLOUD_BLOCK.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(10f).requiresTool()));
+
     public static final Block CLOUD_SLAB = registerBlock("cloud_slab",
             new CloudSlab(AbstractBlock.Settings.create().strength(0.5f).requiresTool(), 200));
 
