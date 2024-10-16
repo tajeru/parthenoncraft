@@ -49,6 +49,10 @@ public class ModItemGroups {
                         entries.add(ModBlocks.CLOUD_STAIRS);
                         entries.add(ModBlocks.CLOUD_SLAB);
 
+                        //スポーンブロック
+                        entries.add(ModItems.MINOTAUR_SPAWN_EGG);
+                        entries.add(ModItems.EYENGEL_SPAWN_EGG);
+
                     }).build());
 
     public static final ItemGroup PARTHENONCRAFT_DEBUG = Registry.register(Registries.ITEM_GROUP,

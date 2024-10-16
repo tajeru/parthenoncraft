@@ -8,7 +8,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Model;
 import net.minecraft.data.client.Models;
+import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 
 public class ModModelProvider extends FabricModelProvider {
@@ -77,6 +81,14 @@ public class ModModelProvider extends FabricModelProvider {
     itemModelGenerator.register(ModItems.HUMAN_BONE, Models.GENERATED);
     itemModelGenerator.register(ModItems.SOMEONES_DIARY, Models.GENERATED);
     itemModelGenerator.register(ModItems.RED_STRING, Models.GENERATED);
+
+
+        //スポーンエッグ
+        itemModelGenerator.register(ModItems.MINOTAUR_SPAWN_EGG,
+                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
+
+        itemModelGenerator.register(ModItems.EYENGEL_SPAWN_EGG,
+                new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
 
 
 

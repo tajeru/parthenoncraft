@@ -1,10 +1,12 @@
 package com.github.tajeru.parthenoncraft.item;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
+import com.github.tajeru.parthenoncraft.entity.client.ModEntities;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -23,6 +25,13 @@ public class ModItems {
     public static final Item HUMAN_BONE = registerItem("human_bone", new Item(new Item.Settings()));
     public static final Item SOMEONES_DIARY = registerItem("someones_diary", new Item(new Item.Settings()));
     public static final Item RED_STRING = registerItem("red_string", new Item(new Item.Settings()));
+
+    //スポーンブロック追加
+    public static final Item MINOTAUR_SPAWN_EGG = registerItem("minotaur_spawn_egg",
+            new SpawnEggItem(ModEntities.MINOTAUR, 0x340000, 0xe9f00e, new Item.Settings()));
+
+    public static final Item EYENGEL_SPAWN_EGG = registerItem("eyengel_spawn_egg",
+            new SpawnEggItem(ModEntities.EYENGEL, 0xfafafa, 0xfbf96e, new Item.Settings()));
 
 
     //アイテム登録を行う関数　基本触らない。

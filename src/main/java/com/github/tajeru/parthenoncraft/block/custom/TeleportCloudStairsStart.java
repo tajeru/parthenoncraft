@@ -2,7 +2,6 @@ package com.github.tajeru.parthenoncraft.block.custom;
 
 import com.github.tajeru.parthenoncraft.block.ModBlocks;
 import com.github.tajeru.parthenoncraft.world.dimension.ModDimensions;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.entity.Entity;

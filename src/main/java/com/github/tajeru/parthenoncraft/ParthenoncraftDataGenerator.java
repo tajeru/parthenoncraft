@@ -4,8 +4,6 @@ import com.github.tajeru.parthenoncraft.datagen.*;
 import com.github.tajeru.parthenoncraft.world.ModConfiguredFeatures;
 import com.github.tajeru.parthenoncraft.world.ModPlacedFeatures;
 import com.github.tajeru.parthenoncraft.world.dimension.ModDimensions;
-import com.github.tajeru.parthenoncraft.world.gen.ModStructuresGeneration;
-import com.github.tajeru.parthenoncraft.world.structure.ModStructureConfiguredFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
