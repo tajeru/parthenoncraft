@@ -1,0 +1,62 @@
+{
+  // プロセッサリストは、nbtファイルによって配置されるすべてのブロックに対してプロセッサを実行します。
+  // プロセッサリストによる結果のブロックが、実際にワールドに配置されるブロックです。
+  "processors": [
+    // このリストに対する単一のルールプロセッサ。
+    {
+      "processor_type": "minecraft:rule",
+
+      // このルールプロセッサが使用するルール
+      "rules": [
+        {
+          // nbtファイルから探すブロック
+          // これには、見つけた石レンガブロックを50%の確率で置き換えるルールがあります。
+          "input_predicate": {
+            "block": "minecraft:stone_bricks",
+            "probability": 0.5,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          // これは常にtrueです。
+          // 村の道の部分では水を探しているため、道はオークの板に置き換えられます。
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          // 上記の条件がtrueの場合に実際に配置されるブロック
+          "output_state": {
+            "Name": "minecraft:infested_stone_bricks"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:stone_bricks",
+            "probability": 0.05,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "Name": "minecraft:emerald_ore"
+          }
+        },
+        {
+          "input_predicate": {
+            "block": "minecraft:cobbled_deepslate",
+            "probability": 0.1,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          // output_stateのブロックにプロパティがある場合、ブロックのすべてのプロパティを定義する必要があります！
+          "output_state": {
+            "Name": "minecraft:deepslate_redstone_ore",
+            "Properties": {
+              "lit": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
