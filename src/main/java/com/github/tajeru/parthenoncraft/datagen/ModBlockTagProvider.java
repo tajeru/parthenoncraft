@@ -24,10 +24,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(ModBlocks.QUARTZ_FENCE_GATE);
         getOrCreateTagBuilder(BlockTags.WALLS).add(ModBlocks.QUARTZ_WALL);
         getOrCreateTagBuilder(BlockTags.WALLS).add(ModBlocks.QUARTZ_BRICK_WALL);
+        getOrCreateTagBuilder(BlockTags.WALLS).add(ModBlocks.QUARTZ_PILLAR_WALL);
 
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).add(ModBlocks.QUARTZ_BRICK_WALL_PILLAR);
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).add(ModBlocks.QUARTZ_WALL_PILLAR);
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).add(ModBlocks.CALCITE_WALL_PILLAR);
+        getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).add(ModBlocks.QUARTZ_PILLAR_WALL_PILLAR);
 
 
 
