@@ -36,6 +36,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.QUARTZ_FENCE);
                         entries.add(ModBlocks.QUARTZ_FENCE_GATE);
                         entries.add(ModBlocks.QUARTZ_PILLAR_WALL);
+                        entries.add(ModBlocks.QUARTZ_PILLAR_QUARTER);
 
 
                         entries.add(ModBlocks.CALCITE_STAIRS);
