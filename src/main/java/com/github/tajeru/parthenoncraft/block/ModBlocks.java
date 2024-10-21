@@ -90,6 +90,12 @@ public class ModBlocks {
     public static final Block QUARTZ_WALL_PILLAR = registerBlock("quartz_wall_pillar",
             new WallBlock(AbstractBlock.Settings.create().requiresTool()));
 
+    public static final Block QUARTZ_PILLAR_WALL = registerBlock("quartz_pillar_wall",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
+    public static final Block QUARTZ_PILLAR_WALL_PILLAR = registerBlock("quartz_pillar_wall_pillar",
+            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+
 
     public static final Block CLOUD_BLOCK = registerBlock("cloud_block",
             new CloudBlock(AbstractBlock.Settings.create().strength(0.5f),200 ));
