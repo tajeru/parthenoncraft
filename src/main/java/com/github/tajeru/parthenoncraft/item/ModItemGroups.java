@@ -35,6 +35,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.QUARTZ_WALL);
                         entries.add(ModBlocks.QUARTZ_FENCE);
                         entries.add(ModBlocks.QUARTZ_FENCE_GATE);
+                        entries.add(ModBlocks.QUARTZ_PILLAR_WALL);
 
 
                         entries.add(ModBlocks.CALCITE_STAIRS);
@@ -69,6 +70,7 @@ public class ModItemGroups {
                         entries.add(ModBlocks.CALCITE_WALL_PILLAR);
                         entries.add(ModBlocks.QUARTZ_FENCE_PILLAR);
                         entries.add(ModBlocks.CALCITE_FENCE_PILLAR);
+                        entries.add(ModBlocks.QUARTZ_PILLAR_WALL_PILLAR);
 
                             }).build());
     //main classと関係付け

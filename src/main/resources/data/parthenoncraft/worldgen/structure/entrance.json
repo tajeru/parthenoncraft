@@ -17,23 +17,10 @@
   "spawn_overrides": {
     "monster": {
       "bounding_box": "full",
-      "spawns": [
-        {
-          "type": "minecraft:illusioner",
-          "weight": 1,
-          "minCount": 1,
-          "maxCount": 2
-        },
-        {
-          "type": "minecraft:pillager",
-          "weight": 2,
-          "minCount": 1,
-          "maxCount": 4
-        }
-      ]
+      "spawns": []
     },
     "creature": {
-      "bounding_box": "piece",
+      "bounding_box": "full",
       "spawns": [
         {
           "type": "minecraft:parrot",

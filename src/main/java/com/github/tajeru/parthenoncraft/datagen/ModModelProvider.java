@@ -27,6 +27,7 @@ public class ModModelProvider extends FabricModelProvider {
         BlockStateModelGenerator.BlockTexturePool calciteTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.CALCITE);
         BlockStateModelGenerator.BlockTexturePool quartzBricksTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.QUARTZ_BRICKS);
         BlockStateModelGenerator.BlockTexturePool smoothQuartzBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.SMOOTH_QUARTZ);
+        BlockStateModelGenerator.BlockTexturePool quartzPillarBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.QUARTZ_PILLAR);
         BlockStateModelGenerator.BlockTexturePool cloudBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.CLOUD_BLOCK);
         //ここにブロックを追加
         //blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
@@ -40,7 +41,7 @@ public class ModModelProvider extends FabricModelProvider {
         calciteTexturePool.button(ModBlocks.CALCITE_BUTTON);
         calciteTexturePool.pressurePlate(ModBlocks.CALCITE_PRESSURE_PLATE);
         calciteTexturePool.fence(ModBlocks.CALCITE_FENCE);
-          calciteTexturePool.fence(ModBlocks.CALCITE_FENCE_PILLAR);
+        calciteTexturePool.fence(ModBlocks.CALCITE_FENCE_PILLAR);
         calciteTexturePool.fenceGate(ModBlocks.CALCITE_FENCE_GATE);
         calciteTexturePool.wall(ModBlocks.CALCITE_WALL);
         calciteTexturePool.wall(ModBlocks.CALCITE_WALL_PILLAR);
@@ -55,6 +56,9 @@ public class ModModelProvider extends FabricModelProvider {
         smoothQuartzBlockTexturePool.fenceGate(ModBlocks.QUARTZ_FENCE_GATE);
         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL);
         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL_PILLAR);
+
+        quartzPillarBlockTexturePool.wall(ModBlocks.QUARTZ_PILLAR_WALL);
+        quartzPillarBlockTexturePool.wall(ModBlocks.QUARTZ_PILLAR_WALL_PILLAR);
 
 
         cloudBlockTexturePool.stairs(ModBlocks.CLOUD_STAIRS);
