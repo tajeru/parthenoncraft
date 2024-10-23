@@ -2,6 +2,8 @@ package com.github.tajeru.parthenoncraft.item;
 
 import com.github.tajeru.parthenoncraft.Parthenoncraft;
 import com.github.tajeru.parthenoncraft.entity.client.ModEntities;
+import com.github.tajeru.parthenoncraft.item.costom.EntranceCompassItem;
+import com.github.tajeru.parthenoncraft.item.costom.StateChangeWand;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -15,6 +17,12 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     //アイテムを追加
+    public static final Item ENTRANCE_COMPASS = registerItem("entrance_compass",
+            new EntranceCompassItem(new Item.Settings()));
+    public static final Item STATE_CHANGE_WAND = registerItem("state_change_wand",
+            new StateChangeWand(new Item.Settings()));
+
+
     //↓テンプレート
     public static final Item FLUORITE = registerItem("fluorite", new Item(new Item.Settings()));
     public static final Item ROW_FLUORITE = registerItem("raw_fluorite", new Item(new Item.Settings()));
