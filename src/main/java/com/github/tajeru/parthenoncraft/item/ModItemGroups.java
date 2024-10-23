@@ -26,6 +26,7 @@ public class ModItemGroups {
                         entries.add(ModItems.HUMAN_BONE);
                         entries.add(ModItems.SOMEONES_DIARY);
                         entries.add(ModItems.RED_STRING);
+                        entries.add(ModItems.STATE_CHANGE_WAND);
 
 
                         entries.add(ModBlocks.QUARTZ_BRICKS);
