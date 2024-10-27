@@ -11,7 +11,7 @@ import net.minecraft.util.math.Direction;
 
 public class StatueBlock extends HorizontalFacingBlock {
     public static final EnumProperty<Pose> POSE = EnumProperty.of("pose", Pose.class);
-    protected StatueBlock(Settings settings) {
+    public StatueBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(POSE, Pose.DEFAULT));
     }
@@ -26,7 +26,7 @@ public class StatueBlock extends HorizontalFacingBlock {
     }
     // ポーズのEnum
     public enum Pose implements StringIdentifiable {
-        DEFAULT("default"),
+        DEFAULT("stone_statue_in_the_stone"),
         POSE1("pose1"),
         POSE2("pose2"),
         POSE3("pose3");

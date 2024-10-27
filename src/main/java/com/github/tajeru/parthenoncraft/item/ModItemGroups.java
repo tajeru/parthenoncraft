@@ -28,6 +28,13 @@ public class ModItemGroups {
                         entries.add(ModItems.RED_STRING);
                         entries.add(ModItems.STATE_CHANGE_WAND);
 
+                        entries.add(ModBlocks.WHITE_QUARTZ_BLOCK);
+                        entries.add(ModBlocks.WHITE_QUARTZ_STAIRS);
+                        entries.add(ModBlocks.WHITE_QUARTZ_SLAB);
+                        entries.add(ModBlocks.WHITE_QUARTZ_FENCE);
+                        entries.add(ModBlocks.WHITE_QUARTZ_WALL);
+
+
 
                         entries.add(ModBlocks.QUARTZ_BRICKS);
                         entries.add(ModBlocks.QUARTZ_BRICK_STAIRS);
@@ -52,6 +59,8 @@ public class ModItemGroups {
                         entries.add(ModBlocks.CLOUD_STAIRS);
                         entries.add(ModBlocks.CLOUD_SLAB);
 
+                        entries.add(ModBlocks.STONE_STATUE_BLOCK);
+
                         //スポーンブロック
                         entries.add(ModItems.MINOTAUR_SPAWN_EGG);
                         entries.add(ModItems.EYENGEL_SPAWN_EGG);
@@ -67,9 +76,11 @@ public class ModItemGroups {
                         entries.add(ModBlocks.VOID_CLOUD_BLOCK);
                         entries.add(ModBlocks.TELEPORT_CLOUD_STAIRS_START);
                         entries.add(ModBlocks.TELEPORT_CLOUD_STAIRS_END);
+                        entries.add(ModBlocks.WHITE_QUARTZ_WALL_PILLAR);
                         entries.add(ModBlocks.QUARTZ_WALL_PILLAR);
                         entries.add(ModBlocks.QUARTZ_BRICK_WALL_PILLAR);
                         entries.add(ModBlocks.CALCITE_WALL_PILLAR);
+                        entries.add(ModBlocks.WHITE_QUARTZ_FENCE_PILLAR);
                         entries.add(ModBlocks.QUARTZ_FENCE_PILLAR);
                         entries.add(ModBlocks.CALCITE_FENCE_PILLAR);
                         entries.add(ModBlocks.QUARTZ_PILLAR_WALL_PILLAR);

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "parthenoncraft:block/white_quartz_block",
+    "side": "parthenoncraft:block/white_quartz_block",
+    "top": "parthenoncraft:block/white_quartz_block"
+  }
+}

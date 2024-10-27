@@ -27,6 +27,10 @@ public class ModBlocks {
     public static final Block QUARTZ_BRICKS = registerBlock("quartz_bricks",
             new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.NETHER_BRICKS)
                         .strength(3f).requiresTool()));
+    public static final Block WHITE_QUARTZ_BLOCK = registerBlock("white_quartz_block",
+            new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.NETHER_BRICKS)
+                    .strength(3f).requiresTool()));
+
 
     public static final Block CALCITE_STAIRS = registerBlock("calcite_stairs",
             new StairsBlock(Blocks.CALCITE.getDefaultState(),
@@ -42,19 +46,19 @@ public class ModBlocks {
             new PressurePlateBlock(BlockSetType.STONE, AbstractBlock.Settings.create().requiresTool()));
 
     public static final Block CALCITE_FENCE = registerBlock("calcite_fence",
-            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+            new FenceBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
 
     public static final Block CALCITE_FENCE_PILLAR = registerBlock("calcite_fence_pillar",
-            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+            new FenceBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
 
     public static final Block CALCITE_FENCE_GATE = registerBlock("calcite_fence_gate",
             new FenceGateBlock(WoodType.ACACIA, AbstractBlock.Settings.create().requiresTool()));
 
     public static final Block CALCITE_WALL = registerBlock("calcite_wall",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
 
     public  static final Block CALCITE_WALL_PILLAR = registerBlock("calcite_wall_pillar",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(1f).requiresTool()));
 
 
 
@@ -70,34 +74,61 @@ public class ModBlocks {
             new SlabBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_BRICK_WALL = registerBlock("quartz_brick_wall",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_BRICK_WALL_PILLAR = registerBlock("quartz_brick_wall_pillar",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_FENCE = registerBlock("quartz_fence",
-            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+            new FenceBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_FENCE_PILLAR = registerBlock("quartz_fence_pillar",
-            new FenceBlock(AbstractBlock.Settings.create().requiresTool()));
+            new FenceBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_FENCE_GATE = registerBlock("quartz_fence_gate",
-            new FenceGateBlock(WoodType.ACACIA, AbstractBlock.Settings.create().requiresTool()));
+            new FenceGateBlock(WoodType.ACACIA, AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_WALL = registerBlock("quartz_wall",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_WALL_PILLAR = registerBlock("quartz_wall_pillar",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_PILLAR_WALL = registerBlock("quartz_pillar_wall",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_PILLAR_WALL_PILLAR = registerBlock("quartz_pillar_wall_pillar",
-            new WallBlock(AbstractBlock.Settings.create().requiresTool()));
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
     public static final Block QUARTZ_PILLAR_QUARTER = registerBlock("quartz_pillar_quarter",
-            new QuartarBlock(AbstractBlock.Settings.create().requiresTool()));
+            new QuartarBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_STAIRS = registerBlock("white_quartz_stairs",
+            new StairsBlock(ModBlocks.WHITE_QUARTZ_BLOCK.getDefaultState(),
+                    AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_SLAB = registerBlock("white_quartz_slab",
+            new SlabBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_WALL = registerBlock("white_quartz_wall",
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_FENCE = registerBlock("white_quartz_fence",
+            new FenceBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_WALL_PILLAR = registerBlock("white_quartz_wall_pillar",
+            new WallBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+    public static final Block WHITE_QUARTZ_FENCE_PILLAR = registerBlock("white_quartz_fence_pillar",
+            new FenceBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
+
+
+
+
+
+
+    public static final Block STONE_STATUE_BLOCK = registerBlock("stone_statue_in_the_stone",
+            new StatueBlock(AbstractBlock.Settings.create().strength(3f).requiresTool()));
 
 
     public static final Block CLOUD_BLOCK = registerBlock("cloud_block",
