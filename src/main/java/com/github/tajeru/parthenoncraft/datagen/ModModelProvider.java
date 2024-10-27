@@ -29,6 +29,7 @@ public class ModModelProvider extends FabricModelProvider {
         BlockStateModelGenerator.BlockTexturePool smoothQuartzBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.SMOOTH_QUARTZ);
         BlockStateModelGenerator.BlockTexturePool quartzPillarBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(Blocks.QUARTZ_PILLAR);
         BlockStateModelGenerator.BlockTexturePool cloudBlockTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.CLOUD_BLOCK);
+        BlockStateModelGenerator.BlockTexturePool whiteQuartzTexturePool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.WHITE_QUARTZ_BLOCK);
         //ここにブロックを追加
         //blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.QUARTZ_BRICKS);
 
@@ -56,6 +57,13 @@ public class ModModelProvider extends FabricModelProvider {
         smoothQuartzBlockTexturePool.fenceGate(ModBlocks.QUARTZ_FENCE_GATE);
         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL);
         smoothQuartzBlockTexturePool.wall(ModBlocks.QUARTZ_WALL_PILLAR);
+
+        whiteQuartzTexturePool.stairs(ModBlocks.WHITE_QUARTZ_STAIRS);
+        whiteQuartzTexturePool.slab(ModBlocks.WHITE_QUARTZ_SLAB);
+        whiteQuartzTexturePool.fence(ModBlocks.WHITE_QUARTZ_FENCE);
+        whiteQuartzTexturePool.fence(ModBlocks.WHITE_QUARTZ_FENCE_PILLAR);
+        whiteQuartzTexturePool.wall(ModBlocks.WHITE_QUARTZ_WALL);
+        whiteQuartzTexturePool.wall(ModBlocks.WHITE_QUARTZ_WALL_PILLAR);
 
         quartzPillarBlockTexturePool.wall(ModBlocks.QUARTZ_PILLAR_WALL);
         quartzPillarBlockTexturePool.wall(ModBlocks.QUARTZ_PILLAR_WALL_PILLAR);

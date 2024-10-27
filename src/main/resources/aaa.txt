@@ -1,376 +1,228 @@
-package com.mojang.serialization;
+package net.minecraft.world;
 
-import com.google.common.base.Suppliers;
-import com.mojang.datafixers.DataFixUtils;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mojang.datafixers.DataFixer;
+import com.mojang.logging.LogUtils;
+import it.unimi.dsi.fastutil.longs.Long2BooleanMap;
+import it.unimi.dsi.fastutil.longs.Long2BooleanOpenHashMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import net.minecraft.datafixer.DataFixTypes;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtInt;
+import net.minecraft.nbt.scanner.NbtScanQuery;
+import net.minecraft.nbt.scanner.SelectiveNbtCollector;
+import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.structure.StructureStart;
+import net.minecraft.structure.StructureTemplateManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.placement.StructurePlacement;
+import net.minecraft.world.gen.noise.NoiseConfig;
+import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.world.storage.NbtScannable;
+import net.minecraft.world.storage.VersionedChunkStorage;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
-import java.util.stream.Stream;
+public class StructureLocator {
+    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final int START_NOT_PRESENT_REFERENCE = -1;
+    private final NbtScannable chunkIoWorker;
+    private final DynamicRegistryManager registryManager;
+    private final StructureTemplateManager structureTemplateManager;
+    private final RegistryKey<World> worldKey;
+    private final ChunkGenerator chunkGenerator;
+    private final NoiseConfig noiseConfig;
+    private final HeightLimitView world;
+    private final BiomeSource biomeSource;
+    private final long seed;
+    private final DataFixer dataFixer;
+    private final Long2ObjectMap<Object2IntMap<Structure>> cachedStructuresByChunkPos = new Long2ObjectOpenHashMap();
+    private final Map<Structure, Long2BooleanMap> generationPossibilityByStructure = new HashMap();
 
-public abstract class MapCodec<A> extends CompressorHolder implements MapDecoder<A>, MapEncoder<A> {
-    /**
-     * Transforms the given {@link Codec} into a {@link MapCodec} by assuming that the result of all elements is a map.
-     * <p>
-     * This {@link MapCodec} will fail to encode or decode as long as the given {@link Codec} does not return or receive
-     * a map.
-     */
-    public static <A> MapCodec<A> assumeMapUnsafe(final Codec<A> codec) {
-        return new MapCodec<>() {
-            private static final String COMPRESSED_VALUE_KEY = "value";
+    public StructureLocator(NbtScannable chunkIoWorker, DynamicRegistryManager registryManager, StructureTemplateManager structureTemplateManager, RegistryKey<World> worldKey, ChunkGenerator chunkGenerator, NoiseConfig noiseConfig, HeightLimitView world, BiomeSource biomeSource, long seed, DataFixer dataFixer) {
+        this.chunkIoWorker = chunkIoWorker;
+        this.registryManager = registryManager;
+        this.structureTemplateManager = structureTemplateManager;
+        this.worldKey = worldKey;
+        this.chunkGenerator = chunkGenerator;
+        this.noiseConfig = noiseConfig;
+        this.world = world;
+        this.biomeSource = biomeSource;
+        this.seed = seed;
+        this.dataFixer = dataFixer;
+    }
 
-            @Override
-            public <T> Stream<T> keys(final DynamicOps<T> ops) {
-                return Stream.of(ops.createString(COMPRESSED_VALUE_KEY));
+    public StructurePresence getStructurePresence(ChunkPos pos, Structure type, StructurePlacement placement, boolean skipReferencedStructures) {
+        long l = pos.toLong();
+        Object2IntMap<Structure> object2IntMap = (Object2IntMap)this.cachedStructuresByChunkPos.get(l);
+        if (object2IntMap != null) {
+            return this.getStructurePresence(object2IntMap, type, skipReferencedStructures);
+        } else {
+            StructurePresence structurePresence = this.getStructurePresence(pos, type, skipReferencedStructures, l);
+            if (structurePresence != null) {
+                return structurePresence;
+            } else if (!placement.applyFrequencyReduction(pos.x, pos.z, this.seed)) {
+                return StructurePresence.START_NOT_PRESENT;
+            } else {
+                boolean bl = ((Long2BooleanMap)this.generationPossibilityByStructure.computeIfAbsent(type, (structure2) -> {
+                    return new Long2BooleanOpenHashMap();
+                })).computeIfAbsent(l, (chunkPos) -> {
+                    return this.isGenerationPossible(pos, type);
+                });
+                return !bl ? StructurePresence.START_NOT_PRESENT : StructurePresence.CHUNK_LOAD_NEEDED;
             }
+        }
+    }
 
-            @Override
-            public <T> DataResult<A> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-                if (ops.compressMaps()) {
-                    final T value = input.get(COMPRESSED_VALUE_KEY);
-                    if (value == null) {
-                        return DataResult.error(() -> "Missing value");
+    private boolean isGenerationPossible(ChunkPos pos, Structure structure) {
+        DynamicRegistryManager var10003 = this.registryManager;
+        ChunkGenerator var10004 = this.chunkGenerator;
+        BiomeSource var10005 = this.biomeSource;
+        NoiseConfig var10006 = this.noiseConfig;
+        StructureTemplateManager var10007 = this.structureTemplateManager;
+        long var10008 = this.seed;
+        HeightLimitView var10010 = this.world;
+        RegistryEntryList var10011 = structure.getValidBiomes();
+        Objects.requireNonNull(var10011);
+        return structure.getValidStructurePosition(new Structure.Context(var10003, var10004, var10005, var10006, var10007, var10008, pos, var10010, var10011::contains)).isPresent();
+    }
+
+    @Nullable
+    private StructurePresence getStructurePresence(ChunkPos pos, Structure structure, boolean skipReferencedStructures, long posLong) {
+        SelectiveNbtCollector selectiveNbtCollector = new SelectiveNbtCollector(new NbtScanQuery[]{new NbtScanQuery(NbtInt.TYPE, "DataVersion"), new NbtScanQuery("Level", "Structures", NbtCompound.TYPE, "Starts"), new NbtScanQuery("structures", NbtCompound.TYPE, "starts")});
+
+        try {
+            this.chunkIoWorker.scanChunk(pos, selectiveNbtCollector).join();
+        } catch (Exception var13) {
+            Exception exception = var13;
+            LOGGER.warn("Failed to read chunk {}", pos, exception);
+            return StructurePresence.CHUNK_LOAD_NEEDED;
+        }
+
+        NbtElement nbtElement = selectiveNbtCollector.getRoot();
+        if (!(nbtElement instanceof NbtCompound nbtCompound)) {
+            return null;
+        } else {
+            int i = VersionedChunkStorage.getDataVersion(nbtCompound);
+            if (i <= 1493) {
+                return StructurePresence.CHUNK_LOAD_NEEDED;
+            } else {
+                VersionedChunkStorage.saveContextToNbt(nbtCompound, this.worldKey, this.chunkGenerator.getCodecKey());
+
+                NbtCompound nbtCompound2;
+                try {
+                    nbtCompound2 = DataFixTypes.CHUNK.update(this.dataFixer, nbtCompound, i);
+                } catch (Exception var12) {
+                    Exception exception2 = var12;
+                    LOGGER.warn("Failed to partially datafix chunk {}", pos, exception2);
+                    return StructurePresence.CHUNK_LOAD_NEEDED;
+                }
+
+                Object2IntMap<Structure> object2IntMap = this.collectStructuresAndReferences(nbtCompound2);
+                if (object2IntMap == null) {
+                    return null;
+                } else {
+                    this.cache(posLong, object2IntMap);
+                    return this.getStructurePresence(object2IntMap, structure, skipReferencedStructures);
+                }
+            }
+        }
+    }
+
+    @Nullable
+    private Object2IntMap<Structure> collectStructuresAndReferences(NbtCompound nbt) {
+        if (!nbt.contains("structures", 10)) {
+            return null;
+        } else {
+            NbtCompound nbtCompound = nbt.getCompound("structures");
+            if (!nbtCompound.contains("starts", 10)) {
+                return null;
+            } else {
+                NbtCompound nbtCompound2 = nbtCompound.getCompound("starts");
+                if (nbtCompound2.isEmpty()) {
+                    return Object2IntMaps.emptyMap();
+                } else {
+                    Object2IntMap<Structure> object2IntMap = new Object2IntOpenHashMap();
+                    Registry<Structure> registry = this.registryManager.get(RegistryKeys.STRUCTURE);
+                    Iterator var6 = nbtCompound2.getKeys().iterator();
+
+                    while(var6.hasNext()) {
+                        String string = (String)var6.next();
+                        Identifier identifier = Identifier.tryParse(string);
+                        if (identifier != null) {
+                            Structure structure = (Structure)registry.get(identifier);
+                            if (structure != null) {
+                                NbtCompound nbtCompound3 = nbtCompound2.getCompound(string);
+                                if (!nbtCompound3.isEmpty()) {
+                                    String string2 = nbtCompound3.getString("id");
+                                    if (!"INVALID".equals(string2)) {
+                                        int i = nbtCompound3.getInt("references");
+                                        object2IntMap.put(structure, i);
+                                    }
+                                }
+                            }
+                        }
                     }
-                    return codec.parse(ops, value);
+
+                    return object2IntMap;
                 }
-                return codec.parse(ops, ops.createMap(input.entries()));
             }
-
-            @Override
-            public <T> RecordBuilder<T> encode(final A input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-                final DataResult<T> encoded = codec.encodeStart(ops, input);
-                if (ops.compressMaps()) {
-                    return prefix.add(COMPRESSED_VALUE_KEY, encoded);
-                }
-                final DataResult<MapLike<T>> encodedMapResult = encoded.flatMap(ops::getMap);
-                return encodedMapResult.map(encodedMap -> {
-                    encodedMap.entries().forEach(pair -> prefix.add(pair.getFirst(), pair.getSecond()));
-                    return prefix;
-                }).result().orElseGet(() -> prefix.withErrorsFrom(encodedMapResult));
-            }
-        };
-    }
-
-    public final <O> RecordCodecBuilder<O, A> forGetter(final Function<O, A> getter) {
-        return RecordCodecBuilder.of(getter, this);
-    }
-
-    public static <A> MapCodec<A> of(final MapEncoder<A> encoder, final MapDecoder<A> decoder) {
-        return of(encoder, decoder, () -> "MapCodec[" + encoder + " " + decoder + "]");
-    }
-
-    public static <A> MapCodec<A> of(final MapEncoder<A> encoder, final MapDecoder<A> decoder, final Supplier<String> name) {
-        return new MapCodec<A>() {
-            @Override
-            public <T> Stream<T> keys(final DynamicOps<T> ops) {
-                return Stream.concat(encoder.keys(ops), decoder.keys(ops));
-            }
-
-            @Override
-            public <T> DataResult<A> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-                return decoder.decode(ops, input);
-            }
-
-            @Override
-            public <T> RecordBuilder<T> encode(final A input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-                return encoder.encode(input, ops, prefix);
-            }
-
-            @Override
-            public String toString() {
-                return name.get();
-            }
-        };
-    }
-
-    public static <A> MapCodec<A> recursive(final String name, final Function<Codec<A>, MapCodec<A>> wrapped) {
-        return new RecursiveMapCodec<>(name, wrapped);
-    }
-
-    private static class RecursiveMapCodec<A> extends MapCodec<A> {
-        private final String name;
-        private final Supplier<MapCodec<A>> wrapped;
-
-        private RecursiveMapCodec(final String name, final Function<Codec<A>, MapCodec<A>> wrapped) {
-            this.name = name;
-            this.wrapped = Suppliers.memoize(() -> wrapped.apply(codec()));
-        }
-
-        @Override
-        public <T> RecordBuilder<T> encode(final A input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-            return wrapped.get().encode(input, ops, prefix);
-        }
-
-        @Override
-        public <T> DataResult<A> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-            return wrapped.get().decode(ops, input);
-        }
-
-        @Override
-        public <T> Stream<T> keys(final DynamicOps<T> ops) {
-            return wrapped.get().keys(ops);
-        }
-
-        @Override
-        public String toString() {
-            return "RecursiveMapCodec[" + name + ']';
         }
     }
 
-    public MapCodec<A> fieldOf(final String name) {
-        return codec().fieldOf(name);
+    private static Object2IntMap<Structure> createMapIfEmpty(Object2IntMap<Structure> map) {
+        return map.isEmpty() ? Object2IntMaps.emptyMap() : map;
     }
 
-    @Override
-    public MapCodec<A> withLifecycle(final Lifecycle lifecycle) {
-        return new MapCodec<A>() {
-            @Override
-            public <T> Stream<T> keys(final DynamicOps<T> ops) {
-                return MapCodec.this.keys(ops);
+    private StructurePresence getStructurePresence(Object2IntMap<Structure> referencesByStructure, Structure structure, boolean skipReferencedStructures) {
+        int i = referencesByStructure.getOrDefault(structure, -1);
+        return i == -1 || skipReferencedStructures && i != 0 ? StructurePresence.START_NOT_PRESENT : StructurePresence.START_PRESENT;
+    }
+
+    public void cache(ChunkPos pos, Map<Structure, StructureStart> structureStarts) {
+        long l = pos.toLong();
+        Object2IntMap<Structure> object2IntMap = new Object2IntOpenHashMap();
+        structureStarts.forEach((start, structureStart) -> {
+            if (structureStart.hasChildren()) {
+                object2IntMap.put(start, structureStart.getReferences());
             }
 
-            @Override
-            public <T> DataResult<A> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-                return MapCodec.this.decode(ops, input).setLifecycle(lifecycle);
-            }
-
-            @Override
-            public <T> RecordBuilder<T> encode(final A input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-                return MapCodec.this.encode(input, ops, prefix).setLifecycle(lifecycle);
-            }
-
-            @Override
-            public String toString() {
-                return MapCodec.this.toString();
-            }
-        };
+        });
+        this.cache(l, object2IntMap);
     }
 
-    public record MapCodecCodec<A>(MapCodec<A> codec) implements Codec<A> {
-        @Override
-        public <T> DataResult<Pair<A, T>> decode(final DynamicOps<T> ops, final T input) {
-            return codec.compressedDecode(ops, input).map(r -> Pair.of(r, input));
-        }
-
-        @Override
-        public <T> DataResult<T> encode(final A input, final DynamicOps<T> ops, final T prefix) {
-            return codec.encode(input, ops, codec.compressedBuilder(ops)).build(prefix);
-        }
-
-        @Override
-        public String toString() {
-            return codec.toString();
-        }
-    }
-
-    public Codec<A> codec() {
-        return new MapCodecCodec<>(this);
-    }
-
-    public MapCodec<A> stable() {
-        return withLifecycle(Lifecycle.stable());
-    }
-
-    public MapCodec<A> deprecated(final int since) {
-        return withLifecycle(Lifecycle.deprecated(since));
-    }
-
-    public <S> MapCodec<S> xmap(final Function<? super A, ? extends S> to, final Function<? super S, ? extends A> from) {
-        return MapCodec.of(comap(from), map(to), () -> toString() + "[xmapped]");
-    }
-
-    public <S> MapCodec<S> flatXmap(final Function<? super A, ? extends DataResult<? extends S>> to, final Function<? super S, ? extends DataResult<? extends A>> from) {
-        return Codec.of(flatComap(from), flatMap(to), () -> toString() + "[flatXmapped]");
-    }
-
-    public MapCodec<A> validate(final Function<A, DataResult<A>> checker) {
-        return flatXmap(checker, checker);
-    }
-
-    public <E> MapCodec<A> dependent(final MapCodec<E> initialInstance, final Function<A, Pair<E, MapCodec<E>>> splitter, final BiFunction<A, E, A> combiner) {
-        return new Dependent<>(this, initialInstance, splitter, combiner);
-    }
-
-    private static class Dependent<O, E> extends MapCodec<O> {
-        private final MapCodec<E> initialInstance;
-        private final Function<O, Pair<E, MapCodec<E>>> splitter;
-        private final MapCodec<O> codec;
-        private final BiFunction<O, E, O> combiner;
-
-        public Dependent(final MapCodec<O> codec, final MapCodec<E> initialInstance, final Function<O, Pair<E, MapCodec<E>>> splitter, final BiFunction<O, E, O> combiner) {
-            this.initialInstance = initialInstance;
-            this.splitter = splitter;
-            this.codec = codec;
-            this.combiner = combiner;
-        }
-
-        @Override
-        public <T> Stream<T> keys(final DynamicOps<T> ops) {
-            return Stream.concat(codec.keys(ops), initialInstance.keys(ops));
-        }
-
-        @Override
-        public <T> DataResult<O> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-            return codec.decode(ops, input).flatMap((O base) ->
-                splitter.apply(base).getSecond().decode(ops, input).map(e -> combiner.apply(base, e)).setLifecycle(Lifecycle.experimental())
-            );
-        }
-
-        @Override
-        public <T> RecordBuilder<T> encode(final O input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-            codec.encode(input, ops, prefix);
-            final Pair<E, MapCodec<E>> e = splitter.apply(input);
-            e.getSecond().encode(e.getFirst(), ops, prefix);
-            return prefix.setLifecycle(Lifecycle.experimental());
-        }
-    }
-
-    @Override
-    public abstract <T> Stream<T> keys(final DynamicOps<T> ops);
-
-    public interface ResultFunction<A> {
-        <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a);
-
-        <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t);
-    }
-
-    public MapCodec<A> mapResult(final ResultFunction<A> function) {
-        return new MapCodec<A>() {
-            @Override
-            public <T> Stream<T> keys(final DynamicOps<T> ops) {
-                return MapCodec.this.keys(ops);
-            }
-
-            @Override
-            public <T> RecordBuilder<T> encode(final A input, final DynamicOps<T> ops, final RecordBuilder<T> prefix) {
-                return function.coApply(ops, input, MapCodec.this.encode(input, ops, prefix));
-            }
-
-            @Override
-            public <T> DataResult<A> decode(final DynamicOps<T> ops, final MapLike<T> input) {
-                return function.apply(ops, input, MapCodec.this.decode(ops, input));
-            }
-
-            @Override
-            public String toString() {
-                return MapCodec.this + "[mapResult " + function + "]";
-            }
-        };
-    }
-
-    public MapCodec<A> orElse(final Consumer<String> onError, final A value) {
-        return orElse(DataFixUtils.consumerToFunction(onError), value);
-    }
-
-    public MapCodec<A> orElse(final UnaryOperator<String> onError, final A value) {
-        return mapResult(new ResultFunction<A>() {
-            @Override
-            public <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a) {
-                return DataResult.success(a.mapError(onError).result().orElse(value));
-            }
-
-            @Override
-            public <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t) {
-                return t.mapError(onError);
-            }
-
-            @Override
-            public String toString() {
-                return "OrElse[" + onError + " " + value + "]";
-            }
+    private void cache(long pos, Object2IntMap<Structure> referencesByStructure) {
+        this.cachedStructuresByChunkPos.put(pos, createMapIfEmpty(referencesByStructure));
+        this.generationPossibilityByStructure.values().forEach((generationPossibilityByChunkPos) -> {
+            generationPossibilityByChunkPos.remove(pos);
         });
     }
 
-    public MapCodec<A> orElseGet(final Consumer<String> onError, final Supplier<? extends A> value) {
-        return orElseGet(DataFixUtils.consumerToFunction(onError), value);
-    }
-
-    public MapCodec<A> orElseGet(final UnaryOperator<String> onError, final Supplier<? extends A> value) {
-        return mapResult(new ResultFunction<A>() {
-            @Override
-            public <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a) {
-                return DataResult.success(a.mapError(onError).result().orElseGet(value));
+    public void incrementReferences(ChunkPos pos, Structure structure) {
+        this.cachedStructuresByChunkPos.compute(pos.toLong(), (posx, referencesByStructure) -> {
+            if (referencesByStructure == null || ((Object2IntMap)referencesByStructure).isEmpty()) {
+                referencesByStructure = new Object2IntOpenHashMap();
             }
 
-            @Override
-            public <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t) {
-                return t.mapError(onError);
-            }
-
-            @Override
-            public String toString() {
-                return "OrElseGet[" + onError + " " + value.get() + "]";
-            }
+            ((Object2IntMap)referencesByStructure).computeInt(structure, (feature, references) -> {
+                return references == null ? 1 : references + 1;
+            });
+            return (Object2IntMap)referencesByStructure;
         });
-    }
-
-    public MapCodec<A> orElse(final A value) {
-        return mapResult(new ResultFunction<A>() {
-            @Override
-            public <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a) {
-                return DataResult.success(a.result().orElse(value));
-            }
-
-            @Override
-            public <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t) {
-                return t;
-            }
-
-            @Override
-            public String toString() {
-                return "OrElse[" + value + "]";
-            }
-        });
-    }
-
-    public MapCodec<A> orElseGet(final Supplier<? extends A> value) {
-        return mapResult(new ResultFunction<A>() {
-            @Override
-            public <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a) {
-                return DataResult.success(a.result().orElseGet(value));
-            }
-
-            @Override
-            public <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t) {
-                return t;
-            }
-
-            @Override
-            public String toString() {
-                return "OrElseGet[" + value.get() + "]";
-            }
-        });
-    }
-
-    public MapCodec<A> setPartial(final Supplier<A> value) {
-        return mapResult(new ResultFunction<A>() {
-            @Override
-            public <T> DataResult<A> apply(final DynamicOps<T> ops, final MapLike<T> input, final DataResult<A> a) {
-                return a.setPartial(value);
-            }
-
-            @Override
-            public <T> RecordBuilder<T> coApply(final DynamicOps<T> ops, final A input, final RecordBuilder<T> t) {
-                return t;
-            }
-
-            @Override
-            public String toString() {
-                // FIXME: toString needs to be lazy everywhere, otherwise suppliers get resolved too early
-                return "SetPartial[" + value + "]";
-            }
-        });
-    }
-
-    public static <A> MapCodec<A> unit(final A defaultValue) {
-        return unit(() -> defaultValue);
-    }
-
-    public static <A> MapCodec<A> unit(final Supplier<A> defaultValue) {
-        return MapCodec.of(Encoder.empty(), Decoder.unit(defaultValue));
     }
 }

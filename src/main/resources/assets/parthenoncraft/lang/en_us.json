@@ -12,7 +12,13 @@
   "item.parthenoncraft.minotaur_spawn_egg": "Minotaur Spawn Egg",
   "item.parthenoncraft.eyengel_spawn_egg": "Eyengel Spawn Egg",
 
-
+  "block.parthenoncraft.white_quartz_block": "White Quartz Block",
+  "block.parthenoncraft.white_quartz_stairs": "White Quartz Stairs",
+  "block.parthenoncraft.white_quartz_slab": "White Quartz Slab",
+  "block.parthenoncraft.white_quartz_wall": "White Quartz Wall",
+  "block.parthenoncraft.white_quartz_wall_pillar": "White Quartz Wall Pillar",
+  "block.parthenoncraft.white_quartz_fence": "White Quartz Fence",
+  "block.parthenoncraft.white_quartz_fence_pillar": "White Quartz Fence Pillar",
   "block.parthenoncraft.quartz_bricks": "Quartz Bricks",
   "block.parthenoncraft.quartz_brick_stairs": "Quartz Brick Stairs",
   "block.parthenoncraft.quartz_brick_slab": "Quartz Brick Slab",
@@ -25,6 +31,7 @@
   "block.parthenoncraft.quartz_wall_pillar": "Quartz Wall Pillar",
   "block.parthenoncraft.quartz_pillar_wall": "Quartz Pillar Wall",
   "block.parthenoncraft.quartz_pillar_wall_pillar": "Quartz Pillar Wall Pillar",
+  "block.parthenoncraft.quartz_pillar_quarter": "Quartz Ionic Pillar",
 
   "block.parthenoncraft.calcite_stairs": "Calcite Stairs",
   "block.parthenoncraft.calcite_slab": "Calcite Slab",

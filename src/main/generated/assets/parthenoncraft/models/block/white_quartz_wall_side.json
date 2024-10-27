@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "parthenoncraft:block/white_quartz_block"
+  }
+}
